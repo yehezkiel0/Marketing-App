@@ -22,7 +22,7 @@ export default function Login() {
                   <input
                     type="email"
                     id="email"
-                    className="w-full h-[60px]  px-4 mt-4 block bg-white rounded-[15px] border-2 border-solid border-[#d0d5dd]"
+                    className="w-full h-[60px]  px-4 mt-4 block bg-white rounded-[15px] border-2 focus:outline-none border-gray-300  text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500"
                     placeholder="Enter your email"
                     required
                   />
@@ -30,21 +30,22 @@ export default function Login() {
                 <div>
                   <label
                     htmlFor="email"
-                    className="w-full mt-3 block  font-primary font-semibold text-[#363062] text-[20px] tracking-[0] leading-[normal]"
+                    className="w-full mt-5 block  font-primary font-semibold text-[#363062] text-[20px] "
                   >
                     Password
                   </label>
                   <input
                     type="password"
                     id="password"
-                    className="w-full h-[60px] px-4 mt-4 block bg-white rounded-[15px] border-2 border-solid border-[#d0d5dd]"
+                    className="w-full h-[60px] px-4 mt-4 block bg-white rounded-[15px]  text-gray-900 text-sm border-2 focus:outline-none border-gray-300  focus:ring-blue-500 focus:border-blue-500"
                     placeholder="Password"
                     required
                   />
                 </div>
                 <div className="item-center flex justify-center w-full mt-12">
                   <button
-                    className="w-2/3 h-[50px] px-32 py-3 flex items-center justify-center bg-[#3b3286] rounded-[100px] font-primary font-medium text-white text-[17px] text-center"
+                    className="w-2/3 h-[50px] px-32 py-3 flex items-center justify-center bg-[#3b3286] rounded-[100px] font-primary font-medium text-white text-[17px] text-center 
+                    focus:ring-4 focus:outline-none focus:ring-[#5245b1] hover:bg-[#30286f]"
                     type="submit"
                   >
                     Login
@@ -59,7 +60,10 @@ export default function Login() {
                       </p>
                     </div>
                     <div className="item-center flex justify-center w-full">
-                      <button className="flex items-center justify-center w-1/2 max-sm:w-2/3 h-[40px] px-3 max-sm:px-0 py-2 my-4 bg-white rounded-[100px] border border-solid border-[#d0d5dd] font-primary font-semibold text-[#344054] text-[14px] max-sm:text-[10px] text-center">
+                      <button
+                        className="flex items-center justify-center w-1/2 max-sm:w-2/3 h-[40px] px-3 max-sm:px-0 py-2 my-4 bg-white rounded-[100px] border 
+                      border-solid border-[#d0d5dd] focus:outline-none hover:border-blue-300 focus:ring-1 focus:ring-blue-300 font-primary font-semibold text-[#344054] text-[14px] max-sm:text-[10px] text-center"
+                      >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="20"
