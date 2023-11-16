@@ -106,7 +106,7 @@ export default function Login() {
             </div>
           </div>
         </div>
-        <div className=" flex item-center justify-center w-full">
+        <div className=" flex item-center justify-center w-full max-md:hidden">
           <img
             src={Logo}
             className="lg:w-full w-[70%] lg:h-full h-[30%] lg:mr-0 mr-5 lg:rounded-e-3xl "
