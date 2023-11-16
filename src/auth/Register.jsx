@@ -1,58 +1,106 @@
-/* eslint-disable jsx-a11y/alt-text */
 import React from "react";
-import Logo from "../assets/img/Rectangle-33.png";
-export default function Login() {
+import Logo from "../assets/img/Rectangle-34.png";
+
+export default function Register() {
   return (
-    <div className="fixed w-full h-screen px-14 py-10 top-0 left-0 [background:linear-gradient(180deg,rgb(35.97,32.88,65)_0%,rgb(62.88,57.29,115.48)_33.33%,rgb(107.98,100.12,181.87)_64.58%,rgb(133.38,124.71,214.83)_100%)]">
-      <div className="flex w-full h-full lg:flex-row flex-col-reverse">
-        <div className="w-full h-full  bg-white md:rounded-s-3xl max-lg:rounded-3xl">
+    <div
+      className="fixed w-full h-screen px-14 py-10 top-0 left-0"
+      style={{
+        background:
+          "linear-gradient(180deg, rgb(35.97,32.88,65) 0%, rgb(62.88,57.29,115.48) 33.33%, rgb(107.98,100.12,181.87) 64.58%, rgb(133.38,124.71,214.83) 100%)",
+      }}
+    >
+      <div className="flex w-full h-full lg:flex-row">
+        <div className=" flex item-center justify-center w-full max-md:hidden">
+          <img
+            src={Logo}
+            className="lg:w-full lg:h-full lg:mr-0 md:rounded-s-3xl object-cover"
+            alt="Logo"
+          />
+        </div>
+
+        <div className="w-full h-full  bg-white md:rounded-r-3xl">
           <div className="item-center w-full h-full flex flex-col">
-            <div className="h-full flex flex-col  px-12 py-12 gap-2">
+            <div className="h-full max-md:h-1/2 flex flex-col  px-12 py-6 max-md:py-0 gap-2 max-md:scale-75 max-md:px-2 max-md:gap-0">
               <h1 className="font-primary font-bold text-[#363062] text-[50px]">
-                Login Page
+                Sign Up
               </h1>
               <form className="w-full h-fit">
-                <div className="w-full">
+                {/* // Inside the form element */}
+                <div className="flex flex-wrap -mx-4">
+                  <div className="w-full md:w-1/2 px-4">
+                    <label
+                      htmlFor="name"
+                      className="w-full mt-3 block font-primary font-semibold text-[#363062] text-[20px] max-md:text-[18px]"
+                    >
+                      Name
+                    </label>
+                    <input
+                      type="input"
+                      id="name"
+                      className="w-full h-[50px] px-4 mt-2 block bg-white rounded-[15px] border-2 border-solid border-[#d0d5dd]"
+                      placeholder="Name"
+                      required
+                    />
+                  </div>
+                  <div className="w-full md:w-1/2 px-4">
+                    <label
+                      htmlFor="username"
+                      className="w-full mt-3 block font-primary font-semibold text-[#363062] text-[20px] max-md:text-[18px]"
+                    >
+                      Username
+                    </label>
+                    <input
+                      type="input"
+                      id="username"
+                      className="w-full h-[50px] px-4 mt-2 block bg-white rounded-[15px] border-2 border-solid border-[#d0d5dd]"
+                      placeholder="Username"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div>
                   <label
                     htmlFor="email"
-                    className="w-full mt-3 block font-primary font-semibold text-[#363062] text-[20px]"
+                    className="w-full mt-3 block  font-primary font-semibold text-[#363062] text-[20px] max-md:text-[18px]"
                   >
                     Email
                   </label>
                   <input
                     type="email"
                     id="email"
-                    className="w-full h-[60px]  px-4 mt-4 block bg-white rounded-[15px] border-2 focus:outline-none border-gray-300  text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500"
-                    placeholder="Enter your email"
+                    className="w-full h-[50px] px-4 mt-2 block bg-white rounded-[15px] border-2 border-solid border-[#d0d5dd]"
+                    placeholder="Email Address"
                     required
                   />
                 </div>
                 <div>
                   <label
                     htmlFor="email"
-                    className="w-full mt-5 block  font-primary font-semibold text-[#363062] text-[20px] "
+                    className="w-full mt-3 block  font-primary font-semibold text-[#363062] text-[20px] max-md:text-[18px]"
                   >
                     Password
                   </label>
                   <input
                     type="password"
                     id="password"
-                    className="w-full h-[60px] px-4 mt-4 block bg-white rounded-[15px]  text-gray-900 text-sm border-2 focus:outline-none border-gray-300  focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full h-[50px] px-4 mt-2 block bg-white rounded-[15px] border-2 border-solid border-[#d0d5dd]"
                     placeholder="Password"
                     required
                   />
                 </div>
-                <div className="item-center flex justify-center w-full mt-12">
+
+                <div className="item-center flex justify-center w-full mt-6">
                   <button
-                    className="w-2/3 h-[50px] px-32 py-3 flex items-center justify-center bg-[#3b3286] rounded-[100px] font-primary font-medium text-white text-[17px] text-center 
-                    focus:ring-4 focus:outline-none focus:ring-[#5245b1] hover:bg-[#30286f]"
+                    className="w-2/3 h-[45px] px-32 py-3 flex items-center justify-center bg-[#3b3286] rounded-[100px] font-primary font-medium text-white text-[17px] text-center"
                     type="submit"
                   >
-                    Login
+                    Sign Up
                   </button>
                 </div>
                 <div className="items-center flex flex-col w-full mt-4">
-                  <div className="w-full my-2">
+                  <div className="w-full my-1">
                     <div className="inline-flex items-center justify-center w-full">
                       <hr className="w-1/2 max-sm:w-2/3 h-px my-3 bg-gray-200 border-0 dark:bg-gray-700" />
                       <p className="absolute px-3 text-center w-fit bg-white font-primary font-medium text-[#98a2b3] text-[14px]">
@@ -60,10 +108,7 @@ export default function Login() {
                       </p>
                     </div>
                     <div className="item-center flex justify-center w-full">
-                      <button
-                        className="flex items-center justify-center w-1/2 max-sm:w-2/3 h-[40px] px-3 max-sm:px-0 py-2 my-4 bg-white rounded-[100px] border 
-                      border-solid border-[#d0d5dd] focus:outline-none hover:border-blue-300 focus:ring-1 focus:ring-blue-300 font-primary font-semibold text-[#344054] text-[14px] max-sm:text-[10px] text-center"
-                      >
+                      <button className="flex items-center justify-center w-1/2 max-sm:w-2/3 h-[40px] px-3 max-sm:px-0 py-2 my-4 bg-white rounded-[100px] border border-solid border-[#d0d5dd] font-primary font-semibold text-[#344054] text-[14px] max-sm:text-[10px] text-center">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="20"
@@ -94,23 +139,17 @@ export default function Login() {
                   </div>
                 </div>
                 <p className="w-full  font-primary font-medium  text-black text-[15px] text-center">
-                  Don&#39;t have an account?
+                  Already have an account?
                   <a
                     href="/"
                     className="font-primary px-1 font-semibold text-[#3b3286] text-[15px] text-center tracking-[0] leading-[normal] underline"
                   >
-                    Sign Up
+                    Login
                   </a>
                 </p>
               </form>
             </div>
           </div>
-        </div>
-        <div className=" flex item-center justify-center w-full max-md:hidden">
-          <img
-            src={Logo}
-            className="lg:w-full w-[70%] lg:h-full h-[30%] lg:mr-0 mr-5 lg:rounded-e-3xl "
-          ></img>
         </div>
       </div>
     </div>
