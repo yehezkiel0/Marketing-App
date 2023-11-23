@@ -2,3 +2,32 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.scroll-container {
+  max-height: 240px; /* Tentukan tinggi maksimum kontainer */
+  overflow-y: auto;
+  scrollbar-width: thin; /* Untuk Firefox */
+}
+
+/* Untuk browser WebKit (Chrome, Safari, Opera) */
+.scroll-container::-webkit-scrollbar {
+  width: 0; /* Sembunyikan scrollbar horizontal */
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+  display: none; /* Sembunyikan thumb (grip) scrollbar */
+}
+
+.message-container {
+  max-height: 100px; /* Tentukan tinggi maksimum kontainer */
+  overflow-y: auto;
+  scrollbar-width: thin; /* Untuk Firefox */
+}
+
+.message-container::-webkit-scrollbar {
+  width: 0; /* Sembunyikan scrollbar horizontal */
+}
+
+.message-container::-webkit-scrollbar-thumb {
+  display: none; /* Sembunyikan thumb (grip) scrollbar */
+}

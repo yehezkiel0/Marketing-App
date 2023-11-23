@@ -11,6 +11,7 @@ module.exports = {
           "Arial",
           "sans-serif",
         ],
+        secondary: ["Nunito", "Nunito-Medium"],
       },
       fontWeight: {
         hairline: 100,

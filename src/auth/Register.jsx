@@ -1,5 +1,6 @@
 import React from "react";
 import Logo from "../assets/img/Rectangle-34.png";
+import { Link } from "react-router-dom";
 
 export default function Register() {
   return (
@@ -38,7 +39,7 @@ export default function Register() {
                     <input
                       type="input"
                       id="name"
-                      className="w-full h-[50px] px-4 mt-2 block bg-white rounded-[15px] border-2 border-solid border-[#d0d5dd]"
+                      className="w-full h-[50px] px-4 mt-2 block bg-white rounded-[15px]  text-gray-900 text-sm border-2 focus:outline-none border-gray-300  focus:ring-blue-500 focus:border-blue-500"
                       placeholder="Name"
                       required
                     />
@@ -53,7 +54,7 @@ export default function Register() {
                     <input
                       type="input"
                       id="username"
-                      className="w-full h-[50px] px-4 mt-2 block bg-white rounded-[15px] border-2 border-solid border-[#d0d5dd]"
+                      className="w-full h-[50px] px-4 mt-2 block bg-white rounded-[15px]  text-gray-900 text-sm border-2 focus:outline-none border-gray-300  focus:ring-blue-500 focus:border-blue-500"
                       placeholder="Username"
                       required
                     />
@@ -70,14 +71,14 @@ export default function Register() {
                   <input
                     type="email"
                     id="email"
-                    className="w-full h-[50px] px-4 mt-2 block bg-white rounded-[15px] border-2 border-solid border-[#d0d5dd]"
+                    className="w-full h-[50px] px-4 mt-2 block bg-white rounded-[15px]  text-gray-900 text-sm border-2 focus:outline-none border-gray-300  focus:ring-blue-500 focus:border-blue-500"
                     placeholder="Email Address"
                     required
                   />
                 </div>
                 <div>
                   <label
-                    htmlFor="email"
+                    htmlFor="password"
                     className="w-full mt-3 block  font-primary font-semibold text-[#363062] text-[20px] max-md:text-[18px]"
                   >
                     Password
@@ -85,7 +86,7 @@ export default function Register() {
                   <input
                     type="password"
                     id="password"
-                    className="w-full h-[50px] px-4 mt-2 block bg-white rounded-[15px] border-2 border-solid border-[#d0d5dd]"
+                    className="w-full h-[50px] px-4 mt-2 block bg-white rounded-[15px]  text-gray-900 text-sm border-2 focus:outline-none border-gray-300  focus:ring-blue-500 focus:border-blue-500"
                     placeholder="Password"
                     required
                   />
@@ -93,7 +94,8 @@ export default function Register() {
 
                 <div className="item-center flex justify-center w-full mt-6">
                   <button
-                    className="w-2/3 h-[45px] px-32 py-3 flex items-center justify-center bg-[#3b3286] rounded-[100px] font-primary font-medium text-white text-[17px] text-center"
+                    className="w-2/3 h-[45px] px-32 py-3 flex items-center justify-center bg-[#3b3286] focus:ring-4 focus:outline-none focus:ring-[#5245b1] hover:bg-[#30286f]
+                     rounded-[100px] font-primary font-medium text-white text-[17px] text-center"
                     type="submit"
                   >
                     Sign Up
@@ -108,7 +110,10 @@ export default function Register() {
                       </p>
                     </div>
                     <div className="item-center flex justify-center w-full">
-                      <button className="flex items-center justify-center w-1/2 max-sm:w-2/3 h-[40px] px-3 max-sm:px-0 py-2 my-4 bg-white rounded-[100px] border border-solid border-[#d0d5dd] font-primary font-semibold text-[#344054] text-[14px] max-sm:text-[10px] text-center">
+                      <button
+                        className="flex items-center justify-center w-1/2 max-sm:w-2/3 h-[40px] px-3 max-sm:px-0 py-2 my-4 bg-white rounded-[100px] border border-solid border-[#d0d5dd] 
+                      focus:outline-none hover:border-blue-300 focus:ring-1 focus:ring-blue-300 font-primary font-semibold text-[#344054] text-[14px] max-sm:text-[10px] text-center"
+                      >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="20"
@@ -140,12 +145,12 @@ export default function Register() {
                 </div>
                 <p className="w-full  font-primary font-medium  text-black text-[15px] text-center">
                   Already have an account?
-                  <a
-                    href="/"
+                  <Link
+                    to={"/"}
                     className="font-primary px-1 font-semibold text-[#3b3286] text-[15px] text-center tracking-[0] leading-[normal] underline"
                   >
                     Login
-                  </a>
+                  </Link>
                 </p>
               </form>
             </div>

@@ -1,9 +1,16 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from "react";
 import Logo from "../assets/img/Rectangle-33.png";
+import { Link } from "react-router-dom";
 export default function Login() {
+  const handleLogin = (event) => {
+    event.preventDefault();
+    localStorage.setItem("email", event.target.email.value);
+    localStorage.setItem("password", event.target.password.value);
+    window.location.href = "/";
+  };
   return (
-    <div className="fixed w-full h-screen px-14 py-10 top-0 left-0 [background:linear-gradient(180deg,rgb(35.97,32.88,65)_0%,rgb(62.88,57.29,115.48)_33.33%,rgb(107.98,100.12,181.87)_64.58%,rgb(133.38,124.71,214.83)_100%)]">
+    <div className="fixed w-full h-screen px-14 py-10  [background:linear-gradient(180deg,rgb(35.97,32.88,65)_0%,rgb(62.88,57.29,115.48)_33.33%,rgb(107.98,100.12,181.87)_64.58%,rgb(133.38,124.71,214.83)_100%)]">
       <div className="flex w-full h-full lg:flex-row">
         <div className="w-full h-full  bg-white md:rounded-s-3xl max-lg:rounded-3xl">
           <div className="item-center w-full h-full flex flex-col">
@@ -11,7 +18,7 @@ export default function Login() {
               <h1 className="font-primary font-bold text-[#363062] text-[50px]">
                 Login Page
               </h1>
-              <form className="w-full h-fit">
+              <form className="w-full h-fit" onSubmit={handleLogin}>
                 <div className="w-full">
                   <label
                     htmlFor="email"
@@ -21,7 +28,8 @@ export default function Login() {
                   </label>
                   <input
                     type="email"
-                    id="email"
+                    id="emailInput"
+                    name="email"
                     className="w-full h-[60px]  px-4 mt-4 block bg-white rounded-[15px] border-2 focus:outline-none border-gray-300  text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500"
                     placeholder="Enter your email"
                     required
@@ -29,7 +37,7 @@ export default function Login() {
                 </div>
                 <div>
                   <label
-                    htmlFor="email"
+                    htmlFor="password"
                     className="w-full mt-3 block  font-primary font-semibold text-[#363062] text-[20px] "
                   >
                     Password
@@ -37,6 +45,7 @@ export default function Login() {
                   <input
                     type="password"
                     id="password"
+                    name="password"
                     className="w-full h-[60px] px-4 mt-4 block bg-white rounded-[15px]  text-gray-900 text-sm border-2 focus:outline-none border-gray-300  focus:ring-blue-500 focus:border-blue-500"
                     placeholder="Password"
                     required
@@ -95,12 +104,12 @@ export default function Login() {
                 </div>
                 <p className="w-full  font-primary font-medium  text-black text-[15px] text-center">
                   Don&#39;t have an account?
-                  <a
-                    href="/"
+                  <Link
+                    to={"/register"}
                     className="font-primary px-1 font-semibold text-[#3b3286] text-[15px] text-center underline"
                   >
                     Sign Up
-                  </a>
+                  </Link>
                 </p>
               </form>
             </div>
