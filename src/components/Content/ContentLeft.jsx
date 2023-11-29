@@ -4,7 +4,7 @@ import Message from "../ChatWindow/Message/Message";
 import CardStat from "../Card/CardStat";
 
 export default function ContentLeft() {
-  const email = localStorage.getItem("email");
+  const username = localStorage.getItem("username");
 
   return (
     <div className="px-8 mb-4 w-[75%]">
@@ -16,7 +16,7 @@ export default function ContentLeft() {
         />
         <div className="flex flex-col">
           <h1 className="font-primary font-bold text-3xl text-[#3B3286]">
-            Hello, {email} !
+            Hello, {username} !
           </h1>
           <p className="font-secondary font-bold text-lg text-[#4E4885]">
             View sales and marketing’s report on current progresses

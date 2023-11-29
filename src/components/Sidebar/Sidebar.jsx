@@ -10,8 +10,8 @@ export default function Sidebar() {
     { name: "Dashboard", icon: <RiListCheck />, path: "/" },
     { name: "Profile", icon: <CgProfile />, path: "/pages" },
     { name: "Reports", icon: <GoGraph />, path: "" },
-    { name: "Informations", icon: <MdPermDeviceInformation />, path: "" },
-    { name: "Chat", icon: <MdOutlineGroups />, path: "" },
+    { name: "Informations", icon: <MdPermDeviceInformation />, path: "/login" },
+    { name: "Form", icon: <MdOutlineGroups />, path: "/form" },
   ];
   return (
     <div className="h-full border-gray-200 w-64 px-4 py-6 space-y-[50px]">
@@ -31,9 +31,15 @@ export default function Sidebar() {
 
 function SidebarLink({ item }) {
   const { pathname } = useLocation();
+  const handleLinkClick = () => {
+    if (item.path === "/login") {
+      localStorage.setItem("isLoading", "true"); // Jika kembali ke halaman login, set isLoading ke true di localStorage
+    }
+  };
 
   return (
     <Link
+      onClick={handleLinkClick}
       to={item.path}
       className={`w-[90%] mb-4 flex flex-row items-center px-2 gap-x-7  py-4 rounded-3xl hover:bg-white hover:bg-opacity-[0.13] ${
         pathname === item.path ? "bg-white bg-opacity-[0.13]" : ""

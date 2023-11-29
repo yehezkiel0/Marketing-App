@@ -1,13 +1,70 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/alt-text */
 import React from "react";
+import { useState, useEffect } from "react";
+import ClimbingBoxLoader from "react-spinners/ClimbingBoxLoader";
 import Logo from "../assets/img/Rectangle-33.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { motion } from "framer-motion";
+import { login } from "../auth/Auth";
 export default function Login() {
-  const handleLogin = (event) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    const storedLoadingStatus = localStorage.getItem("isLoading");
+
+    if (storedLoadingStatus === "true") {
+      setIsLoading(true);
+      setTimeout(() => {
+        setIsLoading(false);
+        localStorage.removeItem("isLoading");
+      }, 2000);
+    }
+  }, [location.pathname]);
+  const performLogin = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+      localStorage.removeItem("isLoading");
+      window.location.href = "/";
+    }, 2000);
+  };
+
+  const handleLogin = async (event) => {
     event.preventDefault();
-    localStorage.setItem("email", event.target.email.value);
-    localStorage.setItem("password", event.target.password.value);
-    window.location.href = "/";
+
+    const enteredEmail = event.target.elements.email.value;
+    const enteredPassword = event.target.elements.password.value;
+
+    try {
+      const response = await fetch(
+        "https://pemin.aenzt.tech/api/v1/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: enteredEmail,
+            password: enteredPassword,
+          }),
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        login();
+        performLogin();
+        localStorage.setItem("isLoading", "true");
+      } else {
+        setShowPopup(true);
+      }
+    } catch (error) {
+      console.error("Login failed:", error);
+      setShowPopup(true);
+    }
   };
   return (
     <div className="fixed w-full h-screen px-14 py-10  [background:linear-gradient(180deg,rgb(35.97,32.88,65)_0%,rgb(62.88,57.29,115.48)_33.33%,rgb(107.98,100.12,181.87)_64.58%,rgb(133.38,124.71,214.83)_100%)]">
@@ -21,7 +78,7 @@ export default function Login() {
               <form className="w-full h-fit" onSubmit={handleLogin}>
                 <div className="w-full">
                   <label
-                    htmlFor="email"
+                    htmlFor="emailInput"
                     className="w-full mt-3 block font-primary font-semibold text-[#363062] text-[20px]"
                   >
                     Email
@@ -122,6 +179,46 @@ export default function Login() {
           ></img>
         </div>
       </div>
+      {isLoading && (
+        <div className="fixed top-0 left-0 w-full h-full bg-[#282c34] flex justify-center items-center z-50">
+          <ClimbingBoxLoader size={30} color={"#6A62B2"} />
+        </div>
+      )}
+      {/* Popup Card */}
+      {showPopup && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 2 }}
+          exit={{ opacity: 0 }}
+          className="fixed top-0 left-0 w-full h-full bg-[#a7a7a744] flex justify-center items-center z-50"
+        >
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            exit={{ scale: 0 }}
+            className="relative p-4 w-full max-w-lg bg-white rounded-lg shadow dark:bg-gray-800"
+          >
+            <div className="mb-4 text-sm font-light text-gray-500 dark:text-gray-400">
+              <h3 className="mb-3 text-2xl font-bold text-gray-900 dark:text-white">
+                Login Failed
+              </h3>
+              <p className="text-lg">
+                Please check your email and password and try again.
+              </p>
+            </div>
+            <div className="justify-center pt-0 space-y-4 sm:flex sm:space-y-0">
+              <div className="space-y-4 sm:space-x-4 sm:flex sm:space-y-0">
+                <button
+                  onClick={() => setShowPopup(false)}
+                  className="btn-close py-2 px-4 w-full text-sm font-medium rounded-lg border border-gray-200 sm:w-auto focus:ring-4 focus:outline-none focus:ring-primary-300 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600 bg-primary text-white hover:bg-primary-light transition duration-300"
+                >
+                  OK
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
     </div>
   );
 }

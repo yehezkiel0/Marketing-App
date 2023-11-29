@@ -4,6 +4,13 @@ import Dashboard from "./pages/Dashboard";
 import Login from "./auth/Login";
 import Register from "./auth/Register";
 import Pages from "./pages/Pages";
+import Form from "./pages/Form";
+import { Navigate } from "react-router-dom";
+import { isLoggedIn } from "./auth/Auth";
+
+const PrivateRoute = ({ element: Element, ...rest }) => {
+  return isLoggedIn() ? <Element {...rest} /> : <Navigate to="/login" />;
+};
 
 function App() {
   return (
@@ -15,10 +22,17 @@ function App() {
         <BrowserRouter>
           <Sidebar />
           <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/pages" element={<Pages />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/">
+              <Route index element={<PrivateRoute element={Dashboard} />} />
+            </Route>
+            <Route path="/pages">
+              <Route index element={<PrivateRoute element={Pages} />} />
+            </Route>
+            <Route path="/form">
+              <Route index element={<PrivateRoute element={Form} />} />
+            </Route>
           </Routes>
         </BrowserRouter>
       </div>

@@ -68,8 +68,8 @@ export default function CardGraph() {
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="range" fill="#8884d8" />
-            <Bar dataKey="Income" fill="#82ca9d" />
+            <Bar dataKey="range" fill="#8884d8" radius={[7, 7, 0, 0]} />
+            <Bar dataKey="Income" fill="#3B3286" radius={[7, 7, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </div>

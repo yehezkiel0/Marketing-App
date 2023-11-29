@@ -2,6 +2,7 @@ import React from "react";
 import ContentLeft from "../components/Content/ContentLeft";
 import ContentRight from "../components/Content/ContentRight";
 import CardGraph from "../components/Card/CardGraph";
+import CardInfo from "../components/Card/CardInfo";
 
 export default function Dashboard() {
   return (
@@ -13,7 +14,7 @@ export default function Dashboard() {
         </div>
         <div className="w-full h-2/6 px-8 py-2 flex flex-row justify-evenly gap-4 items-center">
           <CardGraph />
-          <div className="container mx-auto">Content Bottom2</div>
+          <CardInfo />
         </div>
       </div>
     </>

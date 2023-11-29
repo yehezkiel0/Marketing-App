@@ -29,7 +29,7 @@ export default function Message() {
   };
   return (
     <div>
-      <div className="h-full px-4 overflow-y-auto message-container">
+      <div className="h-[300px] px-4 overflow-y-auto message-container">
         {chatMessages.map((message, index) => (
           <div
             key={index}

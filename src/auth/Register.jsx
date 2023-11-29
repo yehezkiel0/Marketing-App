@@ -1,8 +1,60 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
+import { useState, useEffect } from "react";
 import Logo from "../assets/img/Rectangle-34.png";
 import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import ClimbingBoxLoader from "react-spinners/ClimbingBoxLoader";
 
 export default function Register() {
+  const [isLoading, setIsLoading] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    const storedLoadingStatus = localStorage.getItem("isLoading");
+
+    if (storedLoadingStatus === "true") {
+      setIsLoading(true);
+      setTimeout(() => {
+        setIsLoading(false);
+        localStorage.removeItem("isLoading");
+      }, 2000);
+    }
+  }, [location.pathname]);
+
+  const performRegister = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+      localStorage.removeItem("isLoading");
+      window.location.href = "/login";
+    }, 2000);
+  };
+
+  const handleRegister = (event) => {
+    event.preventDefault();
+    const password = event.target.password.value;
+
+    // Regular expression to validate password (minimum 8 characters, at least one uppercase letter, and at least one digit)
+    const passwordPattern = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+
+    if (!passwordPattern.test(password)) {
+      alert(
+        "Password must contain at least 8 characters including one uppercase letter and one digit."
+      );
+      return;
+    }
+    const name = event.target.name.value;
+    const username = event.target.username.value;
+    const email = event.target.email.value;
+
+    localStorage.setItem("name", name);
+    localStorage.setItem("username", username);
+    localStorage.setItem("email", email);
+    localStorage.setItem("password", password);
+    localStorage.setItem("isLoading", "true");
+    performRegister();
+  };
   return (
     <div
       className="fixed w-full h-screen px-14 py-10 top-0 left-0"
@@ -26,19 +78,19 @@ export default function Register() {
               <h1 className="font-primary font-bold text-[#363062] text-[50px]">
                 Sign Up
               </h1>
-              <form className="w-full h-fit">
-                {/* // Inside the form element */}
+              <form className="w-full h-fit" onSubmit={handleRegister}>
                 <div className="flex flex-wrap -mx-4">
                   <div className="w-full md:w-1/2 px-4">
                     <label
-                      htmlFor="name"
+                      htmlFor="nameInput"
                       className="w-full mt-3 block font-primary font-semibold text-[#363062] text-[20px] max-md:text-[18px]"
                     >
                       Name
                     </label>
                     <input
                       type="input"
-                      id="name"
+                      id="nameInput"
+                      name="name"
                       className="w-full h-[50px] px-4 mt-2 block bg-white rounded-[15px]  text-gray-900 text-sm border-2 focus:outline-none border-gray-300  focus:ring-blue-500 focus:border-blue-500"
                       placeholder="Name"
                       required
@@ -46,14 +98,15 @@ export default function Register() {
                   </div>
                   <div className="w-full md:w-1/2 px-4">
                     <label
-                      htmlFor="username"
+                      htmlFor="usernameInput"
                       className="w-full mt-3 block font-primary font-semibold text-[#363062] text-[20px] max-md:text-[18px]"
                     >
                       Username
                     </label>
                     <input
                       type="input"
-                      id="username"
+                      id="usernameInput"
+                      name="username"
                       className="w-full h-[50px] px-4 mt-2 block bg-white rounded-[15px]  text-gray-900 text-sm border-2 focus:outline-none border-gray-300  focus:ring-blue-500 focus:border-blue-500"
                       placeholder="Username"
                       required
@@ -63,14 +116,15 @@ export default function Register() {
 
                 <div>
                   <label
-                    htmlFor="email"
+                    htmlFor="emailInput"
                     className="w-full mt-3 block  font-primary font-semibold text-[#363062] text-[20px] max-md:text-[18px]"
                   >
                     Email
                   </label>
                   <input
                     type="email"
-                    id="email"
+                    id="emailInput"
+                    name="email"
                     className="w-full h-[50px] px-4 mt-2 block bg-white rounded-[15px]  text-gray-900 text-sm border-2 focus:outline-none border-gray-300  focus:ring-blue-500 focus:border-blue-500"
                     placeholder="Email Address"
                     required
@@ -78,14 +132,15 @@ export default function Register() {
                 </div>
                 <div>
                   <label
-                    htmlFor="password"
+                    htmlFor="passwordInput"
                     className="w-full mt-3 block  font-primary font-semibold text-[#363062] text-[20px] max-md:text-[18px]"
                   >
                     Password
                   </label>
                   <input
                     type="password"
-                    id="password"
+                    id="passwordInput"
+                    name="password"
                     className="w-full h-[50px] px-4 mt-2 block bg-white rounded-[15px]  text-gray-900 text-sm border-2 focus:outline-none border-gray-300  focus:ring-blue-500 focus:border-blue-500"
                     placeholder="Password"
                     required
@@ -146,7 +201,7 @@ export default function Register() {
                 <p className="w-full  font-primary font-medium  text-black text-[15px] text-center">
                   Already have an account?
                   <Link
-                    to={"/"}
+                    to={"/login"}
                     className="font-primary px-1 font-semibold text-[#3b3286] text-[15px] text-center tracking-[0] leading-[normal] underline"
                   >
                     Login
@@ -157,6 +212,11 @@ export default function Register() {
           </div>
         </div>
       </div>
+      {isLoading && (
+        <div className="fixed top-0 left-0 w-full h-full bg-[#282c34] flex justify-center items-center z-50">
+          <ClimbingBoxLoader size={30} color={"#6A62B2"} />
+        </div>
+      )}
     </div>
   );
 }

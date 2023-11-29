@@ -1,10 +1,27 @@
-import React from "react";
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from "react";
+import {
+  LineChart,
+  Line,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Legend,
+} from "recharts";
 
 export default function CardStat() {
-  const card = [
+  const [chartData, setChartData] = useState([
+    { name: "Page A", pv: 2400, uv: 4000 },
+    { name: "Page B", pv: 1398, uv: 3000 },
+    { name: "Page C", pv: 3498, uv: 2000 },
+  ]);
+  const [cards, setCards] = useState([
     {
-      name: "Visitors",
+      name: "Instagram",
       icon: (
+        // Icon SVG
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="27"
@@ -20,10 +37,12 @@ export default function CardStat() {
       ),
       number: "572.938",
       total: "485.032",
+      percent: 0.3,
     },
     {
-      name: "Visitors",
+      name: "Websites",
       icon: (
+        // Icon SVG
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="28"
@@ -39,10 +58,12 @@ export default function CardStat() {
       ),
       number: "572.938",
       total: "485.032",
+      percent: 0.7,
     },
     {
-      name: "Visitors",
+      name: "Gmail",
       icon: (
+        // Icon SVG
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="19"
@@ -58,13 +79,42 @@ export default function CardStat() {
       ),
       number: "572.938",
       total: "485.032",
+      percent: 0.5,
     },
-  ];
+  ]);
+
+  const [showPopup, setShowPopup] = useState(false);
+  const [selectedCard, setSelectedCard] = useState(null);
+
+  const togglePopup = (card) => {
+    setSelectedCard(card);
+    setShowPopup(!showPopup);
+  };
+
+  const fetchLatestVisitors = () => {
+    const updatedCards = cards.map((card) => ({
+      ...card,
+      number: (Math.floor(Math.random() * 500000) + 500000).toLocaleString(),
+      total: (Math.floor(Math.random() * 500000) + 500000).toLocaleString(),
+      percent: Math.floor(Math.random() * 100) / 100,
+    }));
+    setCards(updatedCards);
+  };
+
+  useEffect(() => {
+    const interval = setInterval(fetchLatestVisitors, 10000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <>
-      {card.map((val, index) => (
+      {cards.map((val, index) => (
         <div className="container mx-auto px-2 py-2" key={index}>
-          <div className="bg-white border-[1px] border-solid border-[#C3C9D9] rounded-3xl shadow p-4 flex flex-col">
+          <div
+            className="bg-white border-[1px] border-solid border-[#C3C9D9] rounded-3xl shadow p-4 flex flex-col cursor-pointer"
+            onClick={() => togglePopup(val)}
+          >
             <div className="flex items-center justify-between border-b-[1px] border-b-[#CAC8C8] pb-6">
               <div className="bg-[#3B3286] w-[44px] h-[44px] rounded-[10px] flex justify-center items-center">
                 <div>{val.icon}</div>
@@ -81,7 +131,7 @@ export default function CardStat() {
             <div className="py-2 flex flex-col">
               <div className="flex flex-row items-center gap-1">
                 <span className="font-bold font-primary text-[10px] text-[#3B3286]">
-                  +25%
+                  +{val.percent}%
                 </span>
                 <h4 className="text-[#575757] font-primary font-medium text-[10px]">
                   Last month
@@ -94,6 +144,27 @@ export default function CardStat() {
           </div>
         </div>
       ))}
+      {showPopup && selectedCard && (
+        <div className={`popup ${showPopup ? "active" : ""}`}>
+          <div className="popup-inner">
+            <h2>{selectedCard.name}</h2>
+            {selectedCard && (
+              <LineChart width={500} height={300} data={chartData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Line type="monotone" dataKey="pv" stroke="#8884d8" />
+                <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+              </LineChart>
+            )}
+            <button onClick={() => togglePopup(null)} className="mt-2">
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </>
   );
 }
