@@ -13,9 +13,9 @@ import {
 
 export default function CardStat() {
   const [chartData, setChartData] = useState([
-    { name: "Page A", pv: 2400, uv: 4000 },
-    { name: "Page B", pv: 1398, uv: 3000 },
-    { name: "Page C", pv: 3498, uv: 2000 },
+    { name: "Line 1", pv: 2400, uv: 4000 },
+    { name: "Line 2", pv: 1398, uv: 3700 },
+    { name: "Line 3", pv: 3498, uv: 5400 },
   ]);
   const [cards, setCards] = useState([
     {
@@ -102,7 +102,7 @@ export default function CardStat() {
   };
 
   useEffect(() => {
-    const interval = setInterval(fetchLatestVisitors, 10000);
+    const interval = setInterval(fetchLatestVisitors, 6000);
 
     return () => clearInterval(interval);
   }, []);

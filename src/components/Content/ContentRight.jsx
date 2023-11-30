@@ -3,12 +3,12 @@ import React, { useState } from "react";
 
 export default function ContentRight() {
   const customers = [
-    { name: "PT. Pertamina Sero", time: "2 days ago" },
-    { name: "Petroxchina Int", time: "2 days ago" },
-    { name: "PT. Pertamina Sero", time: "2 days ago" },
-    { name: "Petroxchina Int", time: "2 days ago" },
-    { name: "Petroxchina Int", time: "2 days ago" },
-    { name: "Petroxchina Int", time: "2 days ago" },
+    { name: "PT. Pertamina Sero", time: "1 days ago" },
+    { name: "PT. KAI", time: "18 hours ago" },
+    { name: "PT. Bank Mandiri, Tbk", time: "2 hours ago" },
+    { name: "PT. Telkom Indonesia", time: "4 days ago" },
+    { name: "PT. Gudang Garam", time: "1 days ago" },
+    { name: "PT. Bank Mandiri", time: "17 minutes ago" },
   ];
 
   const [isOpen, setIsOpen] = useState(false);

@@ -5,23 +5,10 @@ import Logo from "../assets/img/Rectangle-34.png";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import ClimbingBoxLoader from "react-spinners/ClimbingBoxLoader";
+import axios from "axios";
 
 export default function Register() {
   const [isLoading, setIsLoading] = useState(false);
-  const location = useLocation();
-
-  useEffect(() => {
-    const storedLoadingStatus = localStorage.getItem("isLoading");
-
-    if (storedLoadingStatus === "true") {
-      setIsLoading(true);
-      setTimeout(() => {
-        setIsLoading(false);
-        localStorage.removeItem("isLoading");
-      }, 2000);
-    }
-  }, [location.pathname]);
-
   const performRegister = () => {
     setIsLoading(true);
     setTimeout(() => {
@@ -45,16 +32,75 @@ export default function Register() {
       return;
     }
     const name = event.target.name.value;
-    const username = event.target.username.value;
+    const division = event.target.division.value;
     const email = event.target.email.value;
+    const date = event.target.date.value;
+    const sex = event.target.sex.value;
+    const address = event.target.address.value;
+    const phone = event.target.phone.value;
 
     localStorage.setItem("name", name);
-    localStorage.setItem("username", username);
+    localStorage.setItem("division", division);
     localStorage.setItem("email", email);
     localStorage.setItem("password", password);
+    localStorage.setItem("date", date);
+    localStorage.setItem("sex", sex);
+    localStorage.setItem("address", address);
+    localStorage.setItem("phone", phone);
     localStorage.setItem("isLoading", "true");
     performRegister();
   };
+  // const [formData, setFormData] = useState({
+  //   name: "",
+  //   division: "",
+  //   email: "",
+  //   password: "",
+  //   date: "",
+  //   sex: "",
+  //   address: "",
+  //   phone: "",
+  // });
+
+  // const handleRegister = async (event) => {
+  //   event.preventDefault();
+  //   const passwordPattern = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+  //   const { password, ...otherData } = formData;
+
+  //   if (!passwordPattern.test(password)) {
+  //     alert(
+  //       "Password must contain at least 8 characters including one uppercase letter and one digit."
+  //     );
+  //     return;
+  //   }
+
+  //   localStorage.setItem("isLoading", "true");
+
+  //   try {
+  //     const response = await axios.post(
+  //       "https://pemin.aenzt.tech/api/v1/auth/register",
+  //       formData
+  //     );
+
+  //     if (response.status === 200) {
+  //       setIsLoading(true);
+  //       setTimeout(() => {
+  //         setIsLoading(false);
+  //         localStorage.removeItem("isLoading");
+  //         window.location.href = "/login";
+  //       }, 2000);
+  //     } else {
+  //       console.error("Registration failed");
+  //     }
+  //   } catch (error) {
+  //     console.error("Registration failed:", error);
+  //     setIsLoading(false);
+  //     alert("Registration failed. Please try again.");
+  //   }
+  // };
+
+  // const handleChange = (event) => {
+  //   setFormData({ ...formData, [event.target.name]: event.target.value });
+  // };
   return (
     <div
       className="fixed w-full h-screen px-14 py-10 top-0 left-0"
@@ -74,8 +120,8 @@ export default function Register() {
 
         <div className="w-full h-full  bg-white md:rounded-r-3xl">
           <div className="item-center w-full h-full flex flex-col">
-            <div className="h-full max-md:h-1/2 flex flex-col  px-12 py-6 max-md:py-0 gap-2 max-md:scale-75 max-md:px-2 max-md:gap-0">
-              <h1 className="font-primary font-bold text-[#363062] text-[50px]">
+            <div className="h-full max-md:h-full flex flex-col px-12 py-1 max-md:py-0 max-md:scale-75 max-md:px-2 max-md:gap-0 overflow-y-auto">
+              <h1 className="font-primary font-bold text-[#363062] text-[30px]">
                 Sign Up
               </h1>
               <form className="w-full h-fit" onSubmit={handleRegister}>
@@ -83,7 +129,7 @@ export default function Register() {
                   <div className="w-full md:w-1/2 px-4">
                     <label
                       htmlFor="nameInput"
-                      className="w-full mt-3 block font-primary font-semibold text-[#363062] text-[20px] max-md:text-[18px]"
+                      className="w-full mt-3 block font-primary font-semibold text-[#363062] text-[15px] max-md:text-[18px]"
                     >
                       Name
                     </label>
@@ -91,24 +137,28 @@ export default function Register() {
                       type="input"
                       id="nameInput"
                       name="name"
-                      className="w-full h-[50px] px-4 mt-2 block bg-white rounded-[15px]  text-gray-900 text-sm border-2 focus:outline-none border-gray-300  focus:ring-blue-500 focus:border-blue-500"
+                      // value={formData.name}
+                      // onChange={handleChange}
+                      className="w-full h-[45px] px-4 mt-2 block bg-white rounded-[15px]  text-gray-900 text-sm border-2 focus:outline-none border-gray-300  focus:ring-blue-500 focus:border-blue-500"
                       placeholder="Name"
                       required
                     />
                   </div>
                   <div className="w-full md:w-1/2 px-4">
                     <label
-                      htmlFor="usernameInput"
-                      className="w-full mt-3 block font-primary font-semibold text-[#363062] text-[20px] max-md:text-[18px]"
+                      htmlFor="divisionInput"
+                      className="w-full mt-3 block font-primary font-semibold text-[#363062] text-[15px] max-md:text-[18px]"
                     >
-                      Username
+                      Division
                     </label>
                     <input
                       type="input"
-                      id="usernameInput"
-                      name="username"
-                      className="w-full h-[50px] px-4 mt-2 block bg-white rounded-[15px]  text-gray-900 text-sm border-2 focus:outline-none border-gray-300  focus:ring-blue-500 focus:border-blue-500"
-                      placeholder="Username"
+                      id="divisionInput"
+                      // value={formData.division}
+                      // onChange={handleChange}
+                      name="division"
+                      className="w-full h-[45px] px-4 mt-2 block bg-white rounded-[15px]  text-gray-900 text-sm border-2 focus:outline-none border-gray-300  focus:ring-blue-500 focus:border-blue-500"
+                      placeholder="Division"
                       required
                     />
                   </div>
@@ -117,7 +167,7 @@ export default function Register() {
                 <div>
                   <label
                     htmlFor="emailInput"
-                    className="w-full mt-3 block  font-primary font-semibold text-[#363062] text-[20px] max-md:text-[18px]"
+                    className="w-full mt-3 block  font-primary font-semibold text-[#363062] text-[15px] max-md:text-[18px]"
                   >
                     Email
                   </label>
@@ -125,7 +175,9 @@ export default function Register() {
                     type="email"
                     id="emailInput"
                     name="email"
-                    className="w-full h-[50px] px-4 mt-2 block bg-white rounded-[15px]  text-gray-900 text-sm border-2 focus:outline-none border-gray-300  focus:ring-blue-500 focus:border-blue-500"
+                    // value={formData.email}
+                    // onChange={handleChange}
+                    className="w-full h-[45px] px-4 mt-1 block bg-white rounded-[15px]  text-gray-900 text-sm border-2 focus:outline-none border-gray-300  focus:ring-blue-500 focus:border-blue-500"
                     placeholder="Email Address"
                     required
                   />
@@ -133,7 +185,7 @@ export default function Register() {
                 <div>
                   <label
                     htmlFor="passwordInput"
-                    className="w-full mt-3 block  font-primary font-semibold text-[#363062] text-[20px] max-md:text-[18px]"
+                    className="w-full mt-3 block  font-primary font-semibold text-[#363062] text-[15px] max-md:text-[18px]"
                   >
                     Password
                   </label>
@@ -141,32 +193,110 @@ export default function Register() {
                     type="password"
                     id="passwordInput"
                     name="password"
-                    className="w-full h-[50px] px-4 mt-2 block bg-white rounded-[15px]  text-gray-900 text-sm border-2 focus:outline-none border-gray-300  focus:ring-blue-500 focus:border-blue-500"
+                    // value={formData.password}
+                    // onChange={handleChange}
+                    className="w-full h-[45px] px-4 mt-1 block bg-white rounded-[15px]  text-gray-900 text-sm border-2 focus:outline-none border-gray-300  focus:ring-blue-500 focus:border-blue-500"
                     placeholder="Password"
                     required
                   />
                 </div>
+                <div className="flex flex-wrap -mx-4">
+                  <div className="w-full md:w-1/2 px-4">
+                    <label
+                      htmlFor="dateInput"
+                      className="w-full mt-3 block font-primary font-semibold text-[#363062] text-[15px] max-md:text-[18px]"
+                    >
+                      BirthDate
+                    </label>
+                    <input
+                      type="input"
+                      id="dateInput"
+                      name="date"
+                      // value={formData.date}
+                      // onChange={handleChange}
+                      className="w-full h-[45px] px-4 mt-1 block bg-white rounded-[15px]  text-gray-900 text-sm border-2 focus:outline-none border-gray-300  focus:ring-blue-500 focus:border-blue-500"
+                      placeholder="YYYY-MM-DD"
+                      required
+                    />
+                  </div>
+                  <div className="w-full md:w-1/2 px-4">
+                    <label
+                      htmlFor="sexInput"
+                      className="w-full mt-3 block font-primary font-semibold text-[#363062] text-[15px] max-md:text-[18px]"
+                    >
+                      Sex
+                    </label>
+                    <input
+                      type="input"
+                      id="sexInput"
+                      name="sex"
+                      // value={formData.sex}
+                      // onChange={handleChange}
+                      className="w-full h-[45px] px-4 mt-1 block bg-white rounded-[15px]  text-gray-900 text-sm border-2 focus:outline-none border-gray-300  focus:ring-blue-500 focus:border-blue-500"
+                      placeholder="M / F"
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="flex flex-wrap -mx-4">
+                  <div className="w-full md:w-1/2 px-4">
+                    <label
+                      htmlFor="addressInput"
+                      className="w-full mt-3 block font-primary font-semibold text-[#363062] text-[15px] max-md:text-[18px]"
+                    >
+                      Address
+                    </label>
+                    <input
+                      type="text"
+                      id="addressInput"
+                      name="address"
+                      // value={formData.address}
+                      // onChange={handleChange}
+                      className="w-full h-[45px] px-4 mt-1 block bg-white rounded-[15px]  text-gray-900 text-sm border-2 focus:outline-none border-gray-300  focus:ring-blue-500 focus:border-blue-500"
+                      placeholder="Address"
+                      required
+                    />
+                  </div>
+                  <div className="w-full md:w-1/2 px-4">
+                    <label
+                      htmlFor="phoneInput"
+                      className="w-full mt-3 block font-primary font-semibold text-[#363062] text-[15px] max-md:text-[18px]"
+                    >
+                      Phone Number
+                    </label>
+                    <input
+                      type="tel"
+                      id="phoneInput"
+                      name="phone"
+                      // value={formData.phone}
+                      // onChange={handleChange}
+                      className="w-full h-[45px] px-4 mt-1 block bg-white rounded-[15px]  text-gray-900 text-sm border-2 focus:outline-none border-gray-300  focus:ring-blue-500 focus:border-blue-500"
+                      placeholder="Phone Number"
+                      required
+                    />
+                  </div>
+                </div>
 
                 <div className="item-center flex justify-center w-full mt-6">
                   <button
-                    className="w-2/3 h-[45px] px-32 py-3 flex items-center justify-center bg-[#3b3286] focus:ring-4 focus:outline-none focus:ring-[#5245b1] hover:bg-[#30286f]
-                     rounded-[100px] font-primary font-medium text-white text-[17px] text-center"
+                    className="w-1/2 h-[35px] px-16 py-2 flex items-center justify-center bg-[#3b3286] focus:ring-4 focus:outline-none focus:ring-[#5245b1] hover:bg-[#30286f]
+                     rounded-[100px] font-primary font-medium text-white text-[15px] text-center"
                     type="submit"
                   >
                     Sign Up
                   </button>
                 </div>
-                <div className="items-center flex flex-col w-full mt-4">
+                <div className="items-center flex flex-col w-full mt-2">
                   <div className="w-full my-1">
                     <div className="inline-flex items-center justify-center w-full">
-                      <hr className="w-1/2 max-sm:w-2/3 h-px my-3 bg-gray-200 border-0 dark:bg-gray-700" />
+                      <hr className="w-[40%] max-sm:w-2/3 h-px my-3 bg-gray-200 border-0 dark:bg-gray-700" />
                       <p className="absolute px-3 text-center w-fit bg-white font-primary font-medium text-[#98a2b3] text-[14px]">
                         or
                       </p>
                     </div>
                     <div className="item-center flex justify-center w-full">
                       <button
-                        className="flex items-center justify-center w-1/2 max-sm:w-2/3 h-[40px] px-3 max-sm:px-0 py-2 my-4 bg-white rounded-[100px] border border-solid border-[#d0d5dd] 
+                        className="flex items-center justify-center w-[40%] max-sm:w-2/3 h-[30px] px-3 max-sm:px-0 py-2 my-4 bg-white rounded-[100px] border border-solid border-[#d0d5dd] 
                       focus:outline-none hover:border-blue-300 focus:ring-1 focus:ring-blue-300 font-primary font-semibold text-[#344054] text-[14px] max-sm:text-[10px] text-center"
                       >
                         <svg
@@ -198,11 +328,11 @@ export default function Register() {
                     </div>
                   </div>
                 </div>
-                <p className="w-full  font-primary font-medium  text-black text-[15px] text-center">
+                <p className="w-full  font-primary font-medium  text-black text-[12px] text-center">
                   Already have an account?
                   <Link
                     to={"/login"}
-                    className="font-primary px-1 font-semibold text-[#3b3286] text-[15px] text-center tracking-[0] leading-[normal] underline"
+                    className="font-primary px-1 font-semibold text-[#3b3286] text-[12px] text-center tracking-[0] leading-[normal] underline"
                   >
                     Login
                   </Link>

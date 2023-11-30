@@ -4,6 +4,7 @@ import { useState } from "react";
 import axios from "axios";
 
 export default function Form() {
+  const name = localStorage.getItem("name");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -101,7 +102,7 @@ export default function Form() {
             className="h-14 w-14  object-cover rounded-full"
           />
           <h1 className="text-[#363062] font-primary font-semibold text-[17px]">
-            Cua Anilla
+            {name}
           </h1>
         </div>
       </div>

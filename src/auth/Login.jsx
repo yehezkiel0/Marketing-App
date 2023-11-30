@@ -7,6 +7,7 @@ import Logo from "../assets/img/Rectangle-33.png";
 import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { login } from "../auth/Auth";
+import axios from "axios";
 export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
@@ -32,39 +33,55 @@ export default function Login() {
     }, 2000);
   };
 
-  const handleLogin = async (event) => {
+  const handleLogin = (event) => {
     event.preventDefault();
 
     const enteredEmail = event.target.elements.email.value;
     const enteredPassword = event.target.elements.password.value;
 
-    try {
-      const response = await fetch(
-        "https://pemin.aenzt.tech/api/v1/auth/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: enteredEmail,
-            password: enteredPassword,
-          }),
-        }
-      );
+    const storedEmail = localStorage.getItem("email");
+    const storedPassword = localStorage.getItem("password");
 
-      if (response.ok) {
-        const data = await response.json();
-        login();
-        performLogin();
-        localStorage.setItem("isLoading", "true");
-      } else {
-        setShowPopup(true);
-      }
-    } catch (error) {
-      console.error("Login failed:", error);
+    if (enteredEmail === storedEmail && enteredPassword === storedPassword) {
+      login();
+      performLogin();
+      localStorage.setItem("isLoading", "true");
+    } else {
       setShowPopup(true);
     }
+    // const handleLogin = async (event) => {
+    //   event.preventDefault();
+
+    //   const enteredEmail = event.target.elements.email.value;
+    //   const enteredPassword = event.target.elements.password.value;
+
+    //   try {
+    //     const response = await axios.post(
+    //       "https://pemin.aenzt.tech/api/v1/auth/login",
+    //       {
+    //         email: enteredEmail,
+    //         password: enteredPassword,
+    //       },
+    //       {
+    //         headers: {
+    //           "Content-Type": "application/json",
+    //         },
+    //       }
+    //     );
+    //     if (response.status === 200) {
+    //       console.log("Login successful:", response.data);
+    //       const token = response.data.access_token;
+    //       localStorage.setItem("auth", token);
+    //       login();
+    //       performLogin();
+    //       localStorage.setItem("isLoading", "true");
+    //     } else {
+    //       setShowPopup(true);
+    //     }
+    //   } catch (error) {
+    //     console.error("Login failed:", error);
+    //     setShowPopup(true);
+    //   }
   };
   return (
     <div className="fixed w-full h-screen px-14 py-10  [background:linear-gradient(180deg,rgb(35.97,32.88,65)_0%,rgb(62.88,57.29,115.48)_33.33%,rgb(107.98,100.12,181.87)_64.58%,rgb(133.38,124.71,214.83)_100%)]">
