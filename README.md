@@ -1,70 +1,57 @@
-# Getting Started with Create React App
+# SaaS Kit - Commercial & White Label Ready
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 🚀 Rebranding Guide (White Label)
 
-## Available Scripts
+This application is designed to be easily white-labeled. You can change the global branding in **one single file**.
 
-In the project directory, you can run:
+### 1. Edit Configuration
 
-### `npm start`
+Open `src/config.js` to change the App Name, Logo, Tagline, and other details.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```javascript
+// src/config.js
+export const config = {
+  appName: "Your Brand Name",
+  appLogo: "🚀", // Or an image URL
+  companyName: "Your Company Ltd",
+  tagline: "The Ultimate Solution for X",
+  supportEmail: "support@yourdomain.com",
+  theme: {
+    primaryColor: "#3b3286", // Implementation depends on Tailwind config
+  },
+};
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 2. Update Assets
 
-### `npm test`
+- Replace `public/vite.svg` with your favicon.
+- Replace any static images in `src/assets` if applicable.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 3. Stripe Integration
 
-### `npm run build`
+To enable payments:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Create a **Payment Link** in your Stripe Dashboard.
+2. Open `src/pages/Settings.jsx`.
+3. Replace the placeholder URL in the `handleUpgrade` function.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```javascript
+// src/pages/Settings.jsx
+const paymentLink = "https://buy.stripe.com/your-live-link";
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 4. Database Setup (Supabase)
 
-### `npm run eject`
+Run the SQL migration scripts in your Supabase SQL Editor:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. `schema.sql` (Initial setup)
+2. `seed.sql` (Dummy data)
+3. `alter_profiles.sql` (Subscription support)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 📦 Deployment
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+This is a standard Vite + React application.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- **Build**: `npm run build`
+- **Preview**: `npm run preview`
+- **Deploy**: Vercel, Netlify, or AWS Amplify (Drag & drop `dist` folder).
